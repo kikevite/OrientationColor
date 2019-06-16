@@ -41,35 +41,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         float[] orientations = new float[3];
         SensorManager.getOrientation(remappedRotationMatrix, orientations);
 
-        int eix = 0;
-        orientations[eix] = (float)(Math.toDegrees(orientations[eix]) + 180f);
-        orientations[eix] *= 4.25f;
+        int eix;
+        eix = 0;
+        orientations[eix] = (float)(Math.toDegrees(orientations[eix]) + 180f);//360
+        orientations[eix] /= (float)(360.0/255.0);
+        int intR = (int) (orientations[eix] > 255.0 ? 255.0f : orientations[eix] < 0.0 ? 0.0f : orientations[eix]);
 
-        float r = 0, g = 0, b = 0;
-        if (0 <= orientations[eix] && orientations[eix] <= 255) {
-            r = 255;
-            g = orientations[eix];
-        } else if (255 < orientations[eix] && orientations[eix] <= 510) {
-            r = 510 - orientations[eix];
-            g = 255;
-        } else if (510 < orientations[eix] && orientations[eix] <= 765) {
-            g = 255;
-            b = orientations[eix] - 510;
-        } else if (765 < orientations[eix] && orientations[eix] <= 1020) {
-            g = 1020 - orientations[eix];
-            b = 255;
-        } else if (1020 < orientations[eix] && orientations[eix] <= 1275) {
-            r = orientations[eix] - 1020;
-            b = 255;
-        } else if (1275 < orientations[eix] && orientations[eix] <= 1530) {
-            r = 255;
-            b = 1530 - orientations[eix];
-        }
-        int intR = (int) r;
-        int intG = (int) g;
-        int intB = (int) b;
+        eix = 1;
+        orientations[eix] = (float)(Math.toDegrees(orientations[eix]) + 90f);//180
+        orientations[eix] /= (float)(255.0/360.0);
+        int intG = (int) (orientations[eix] > 255.0 ? 255.0f : orientations[eix] < 0.0 ? 0.0f : orientations[eix]);
 
-        //Log.i("kike", "" + intR + " " + intG + " " + intB);
+        eix = 2;
+        orientations[eix] = (float)(Math.toDegrees(orientations[eix]) + 180f);//360
+        orientations[eix] /= (float)(360.0/255.0);
+        int intB = (int) (orientations[eix] > 255.0 ? 255.0f : orientations[eix] < 0.0 ? 0.0f : orientations[eix]);
+
+        //eix = 0;
+        //Log.i("kike", "x:" + orientations[eix] + " y:" + orientations[eix+1] + " z:" + orientations[eix+2]);
+        //Log.i("kike", "r:" + intR + " g:" + intG + " b:" + intB);
         getWindow().getDecorView().setBackgroundColor(Color.rgb(intR, intG, intB));
     }
 
