@@ -8,18 +8,14 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
     SensorManager sensorManager;
-    TextView angle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        angle = findViewById(R.id.angle);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         Sensor rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
         sensorManager.registerListener(this, rotationVectorSensor, SensorManager.SENSOR_DELAY_FASTEST);
